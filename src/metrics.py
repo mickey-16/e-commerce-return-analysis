@@ -128,7 +128,8 @@ def calculate_monthly_returns(df: pd.DataFrame) -> pd.DataFrame:
     if not pd.api.types.is_datetime64_any_dtype(df_copy["Order_Date"]):
         df_copy["Order_Date"] = pd.to_datetime(df_copy["Order_Date"])
     
-    df_copy["Month"] = df_copy["Order_Date"].dt.to_period("M")
+    # Keep the grouping key UI-friendly; Streamlit cannot serialize pandas Period values.
+    df_copy["Month"] = df_copy["Order_Date"].dt.to_period("M").astype(str)
     
     # Calculate monthly returns
     monthly_returns = df_copy[df_copy["Returned"] == "Yes"].groupby("Month").size()

@@ -30,9 +30,9 @@ def load_data(file_path: Optional[Path] = None) -> pd.DataFrame:
     
     df = pd.read_csv(file_path)
     
-    print(f"✅ Data loaded successfully!")
-    print(f"📊 Shape: {df.shape}")
-    print(f"📋 Columns: {list(df.columns)}")
+    print("Data loaded successfully!")
+    print(f"Shape: {df.shape}")
+    print(f"Columns: {list(df.columns)}")
     
     return df
 
@@ -77,8 +77,8 @@ def validate_dataset(df: pd.DataFrame) -> bool:
     missing_columns = [col for col in required_columns if col not in df.columns]
     
     if missing_columns:
-        print(f"❌ Missing required columns: {missing_columns}")
+        print(f"Missing required columns: {missing_columns}")
         return False
     
-    print("✅ All required columns present")
+    print("All required columns present")
     return True

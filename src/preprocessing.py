@@ -21,7 +21,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     df_clean = df.copy()
     
-    print("🧹 Starting data cleaning...")
+    print("Starting data cleaning...")
     
     # Remove duplicates
     initial_rows = len(df_clean)
@@ -49,7 +49,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean["Quantity"] = pd.to_numeric(df_clean["Quantity"], errors="coerce")
     df_clean["Delivery_Days"] = pd.to_numeric(df_clean["Delivery_Days"], errors="coerce")
     
-    print(f"✅ Data cleaning completed!")
+    print("Data cleaning completed!")
     print(f"   Final shape: {df_clean.shape}")
     
     return df_clean
@@ -67,10 +67,10 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     df_features = df.copy()
     
-    print("🔧 Creating additional features...")
+    print("Creating additional features...")
     
     # Extract month and year from Order_Date
-    df_features["Order_Month"] = df_features["Order_Date"].dt.to_period("M")
+    df_features["Order_Month"] = df_features["Order_Date"].dt.to_period("M").astype(str)
     df_features["Order_Year"] = df_features["Order_Date"].dt.year
     df_features["Order_Month_Name"] = df_features["Order_Date"].dt.strftime("%B")
     
@@ -91,7 +91,7 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
         labels=["Low", "Medium", "High", "Premium"]
     )
     
-    print(f"✅ Feature engineering completed!")
+    print("Feature engineering completed!")
     
     return df_features
 
@@ -106,7 +106,7 @@ def prepare_ml_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
     Returns:
         Tuple of (X, y) where X is feature matrix and y is target variable
     """
-    print("🤖 Preparing features for ML...")
+    print("Preparing features for ML...")
     
     df_ml = df.copy()
     
@@ -132,7 +132,7 @@ def prepare_ml_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series]:
     print(f"   Features shape: {X.shape}")
     print(f"   Target shape: {y.shape}")
     print(f"   Features: {list(X.columns)}")
-    print(f"✅ ML features prepared!")
+    print("ML features prepared!")
     
     return X, y, le_category, le_region
 
